@@ -1,0 +1,15 @@
+# 99-rfid125k.rules - CH341-alapú RFID 125 kHz olvasó (VID 1A86, PID DD01)
+#
+# Telepítés:
+#   sudo install -m 0644 99-rfid125k.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules
+#   sudo udevadm trigger
+#   (ezután húzd ki és dugd vissza az olvasót)
+#
+# A plugdev csoport tagjai root nélkül használhatják az eszközt.
+
+# USB eszköz csomópont (a hidapi libusb háttérhez)
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="dd01", MODE="0664", GROUP="plugdev"
+
+# hidraw csomópontok (a tiszta Python hidraw háttérhez)
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="dd01", MODE="0664", GROUP="plugdev"
